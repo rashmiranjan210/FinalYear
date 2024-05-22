@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <form action="" method="post" id="form">
+        sic
+        <input type="text" name="sic" id="sic"><br>
+        name
+        <input type="text" name="name" id="name"><br>
+        branch
+        <select name="branch" id="branch">
+            <option value="mca">mca</option>
+            <option value="btech">btech</option>
+            <option value="Msc">Msc</option>
+        </select>
+        <br>
+        Cgpa
+        <input type="text" name="cgpa" id="cgpa" >
+        <input type="submit" id="submit" value="ADD">
+    </form>
+    <label for="" id="t"></label>
+    <script>
+        $("#sic").change(function(){
+            let sic=$("#sic").val()
+            $.post("sic.php", { "sic": sic }, function (data) {
+                if(data.length > 0)
+                {
+                    $("#t").text(data);
+                    $("#submit").prop('disabled', true)
+                } else {
+                    $("#t").text("");
+                    $("#submit").prop('disabled', false)
+                }
+            })
+        })
+
+        $("#form").submit(function(event){
+            event.preventDefault();
+            let sic=$("#sic").val()
+            let name=$("#name").val()
+            let branch=$("#branch").val()
+            let cgpa=$("#cgpa").val()
+            if(sic==="" || name==="" || branch==="" || cgpa===""){
+                alert("Fill all Fielsd")
+                return
+            }
+            let formData = $("#form").serialize()
+            $.post("q6.php" , formData, function(data){
+                $("#t").text(data)
+            })
+        })
+
+    </script>
+</body>
+</html>

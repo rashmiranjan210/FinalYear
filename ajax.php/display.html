@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1 id="heading">Available Data</h1>
+    <div id="res"></div>
+    <script>
+        $.get("display.php", function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            console.log(data);
+            let table = `<table border="1" rules="all" cellpadding="8">`
+            table += `<tr><th>SIC</th><th>NAME</th><th>BRANCH</th><th>CGPA</th></tr>`;
+            for (let i = 0; i < data.length; i++) {
+                table += `<tr>`;
+                table += `<td>${data[i].sic}</td>`;
+                table += `<td>${data[i].name}</td>`;
+                table += `<td>${data[i].branch}</td>`;
+                table += `<td>${data[i].cgpa}</td>`;
+                table += `</tr>`;
+            }
+            table += `</table>`;
+            $("#res").append(table);
+        })
+    </script>
+</body>
+</html>
